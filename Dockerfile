@@ -14,6 +14,7 @@ RUN apt-get -qy update && apt-get -qy upgrade
 
 # ports
 EXPOSE 80
+VOLUME /var/www/Pints/data
 
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
