@@ -37,7 +37,7 @@ RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/5.6/apache2/ph
 
 # fetch raspberry pints
 RUN cd /var/www && \
-    git clone http://github.com/tssgery/RaspberryPints.git -b 0.2.0 Pints && \
+    git clone http://github.com/tssgery/RaspberryPints.git -b 0.3.0 Pints && \
     chown -R www-data:www-data /var/www/Pints
 
 VOLUME /var/www/Pints/data
