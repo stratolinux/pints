@@ -14,7 +14,6 @@ RUN apt-get -qy update && apt-get -qy upgrade
 
 # ports
 EXPOSE 80
-VOLUME /var/www/Pints/data
 
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
@@ -40,6 +39,8 @@ RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/5.6/apache2/ph
 RUN cd /var/www && \
     git clone http://github.com/tssgery/RaspberryPints.git -b 0.2.0 Pints && \
     chown -R www-data:www-data /var/www/Pints
+
+VOLUME /var/www/Pints/data
 
 COPY etc/ /etc/
 
