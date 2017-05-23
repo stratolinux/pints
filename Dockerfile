@@ -36,15 +36,8 @@ RUN sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/5.6/apache2/ph
     sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/5.6/apache2/php.ini
 
 # fetch raspberry pints
-#RUN cd /root && \
-#    wget --no-check-certificate https://github.com/RaspberryPints/RaspberryPints/archive/2.0.1.zip && \
-#    unzip 2.0.1.zip && \
-#    mv RaspberryPints-2.0.1 /var/www/Pints && \
-#    chown -R www-data:www-data /var/www/Pints
-
-# fetch raspberry pints
 RUN cd /var/www && \
-    git clone http://github.com/tssgery/RaspberryPints.git -b 0.1.0 Pints && \
+    git clone http://github.com/tssgery/RaspberryPints.git -b 0.2.0 Pints && \
     chown -R www-data:www-data /var/www/Pints
 
 COPY etc/ /etc/
