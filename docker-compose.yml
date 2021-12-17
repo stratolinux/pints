@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  pints:                                
+    restart: always
+    image: foo
+    depends_on:
+      - pints_mysql
+    ports:
+      - 8000:80
+    volumes:                  
+      - /etc/localtime:/etc/localtime:ro
+    environment:    
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}     
+      - DB_TYPE=mysql
+      - DB_HOST=pints_mysql
+      - DB_PORT=3306
+      - DB_NAME=raspberrypints
+      - DB_USER=root
+      - DB_PASS=password
+ 
+  pints_mysql:
+    image: webhippie/mariadb:latest
+    restart: always
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - MARIADB_ROOT_PASSWORD=password
+      - MARIADB_USERNAME=root
+      - MARIADB_PASSWORD=password
+      - MARIADB_DATABASE=raspberrypints
+      - MARIADB_MAX_ALLOWED_PACKET=128M
+      - MARIADB_INNODB_LOG_FILE_SIZE=64M
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volume/mysql/data:/var/lib/mysql
+
+
+  pints_adminer:
+    image: adminer:latest
+    depends_on:
+      - pints_mysql
+    ports:
+      - 9090:8080
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - ADMINER_DEFAULT_SERVER=pints_mysql
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+
+

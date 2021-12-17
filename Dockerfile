@@ -1,6 +1,5 @@
 # base image is stratolinux/baseimage-docker
-FROM stratolinux/baseimage-docker:0.9.19
-MAINTAINER Eric Young <eric@stratolinux.com>
+FROM phusion/baseimage:focal-1.0.0
 ENV APPDIR /opt/mylar
 
 # Use baseimage-docker's init system.
